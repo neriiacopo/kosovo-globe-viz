@@ -130,7 +130,11 @@ export default function Points({ size = 1, harmonic = false, clouds = true }) {
                 const distance = camera.position.distanceTo(
                     new THREE.Vector3(...obj.point)
                 );
-                const opacity = THREE.MathUtils.clamp(2 - distance / 3, 0.0, 2);
+                const opacity = THREE.MathUtils.clamp(
+                    1.5 - distance / 3,
+                    0.0,
+                    2
+                );
 
                 obj.material.opacity = opacity; // Update material opacity
 
