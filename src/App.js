@@ -1,6 +1,7 @@
 import { OrbitControls, Bounds, useBounds } from "@react-three/drei";
 import { levaStore, useControls } from "leva";
 import PointsSprite from "./PointsSprite.js";
+import PointsFrame from "./PointsFrame.js";
 import { useStore } from "./store/useStore.jsx";
 
 export default function App() {
@@ -12,11 +13,10 @@ export default function App() {
         },
     });
 
-    const harmonic = useControls("", {
-        regular: false,
-    });
-
-    const clouds = useControls("", {
+    const toggles = useControls("", {
+        sprite: false,
+        harmonic: true,
+        archive: true,
         clouds: true,
     });
 
@@ -35,9 +35,17 @@ export default function App() {
                 <SelectToZoom>
                     <PointsSprite
                         size={size.size}
-                        harmonic={harmonic.regular}
-                        clouds={clouds.clouds}
+                        sprite={toggles.sprite}
+                        harmonic={toggles.harmonic}
+                        clouds={toggles.clouds}
+                        archive={toggles.archive}
                     />
+                    {!toggles.sprite && toggles.archive && (
+                        <PointsFrame
+                            size={size.size}
+                            harmonic={toggles.harmonic}
+                        />
+                    )}
                 </SelectToZoom>
             </Bounds>
         </>

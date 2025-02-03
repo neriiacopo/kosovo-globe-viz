@@ -4,7 +4,13 @@ import { Html } from "@react-three/drei";
 import { useStore } from "./store/useStore.jsx";
 import { useFrame } from "@react-three/fiber";
 
-export default function Points({ size = 1, harmonic = false, clouds = true }) {
+export default function Points({
+    size = 1,
+    sprite = false,
+    harmonic = false,
+    clouds = true,
+    archive = true,
+}) {
     const [db, setDb] = useState([]);
     const [dbclouds, setDbClouds] = useState([]);
 
@@ -15,13 +21,12 @@ export default function Points({ size = 1, harmonic = false, clouds = true }) {
 
     async function makeMainSprites() {
         // Clean fetching API
-        const response = await fetch("/data.json");
+        const response = await fetch("./data.json");
         const result = await response.json();
 
         const db = [];
 
         for (let i = 0; i < result.length; i++) {
-            const p = result[i];
             const path = result[i].path;
 
             const texture = new THREE.TextureLoader().load(path);
@@ -55,15 +60,14 @@ export default function Points({ size = 1, harmonic = false, clouds = true }) {
         }
 
         setDb(db);
-        console.log(db);
     }
 
     async function makeSecSprites() {
         const cloud_links = [
-            "clouds/c1.jpg",
-            "clouds/c2.jpg",
-            "clouds/c3.jpg",
-            "clouds/c4.png",
+            "./clouds/c1.jpg",
+            "./clouds/c2.jpg",
+            "./clouds/c3.jpg",
+            "./clouds/c4.png",
         ];
 
         const db = [];
@@ -122,7 +126,7 @@ export default function Points({ size = 1, harmonic = false, clouds = true }) {
     useLayoutEffect(() => {
         makeMainSprites();
         makeSecSprites();
-    }, []);
+    }, [archive]);
 
     useFrame(({ camera }) => {
         setDbClouds((prevDbClouds) =>
@@ -145,18 +149,20 @@ export default function Points({ size = 1, harmonic = false, clouds = true }) {
 
     return (
         <>
-            {db.map(function f(obj, index) {
-                return (
-                    <sprite
-                        key={obj.id}
-                        position={harmonic ? obj.posGrid : obj.posRandom}
-                        scale={[size * obj.aspectRatio, size, 1]}
-                        name={obj.name}
-                    >
-                        <spriteMaterial map={obj.texture} />
-                    </sprite>
-                );
-            })}
+            {archive &&
+                sprite &&
+                db.map(function f(obj, index) {
+                    return (
+                        <sprite
+                            key={obj.id}
+                            position={harmonic ? obj.posGrid : obj.posRandom}
+                            scale={[size * obj.aspectRatio, size, 1]}
+                            name={obj.name}
+                        >
+                            <spriteMaterial map={obj.texture} />
+                        </sprite>
+                    );
+                })}
             {clouds &&
                 dbclouds.map(function f(obj, index) {
                     return (
