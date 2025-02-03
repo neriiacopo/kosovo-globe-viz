@@ -1,0 +1,51 @@
+html,
+body,
+#root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    padding: 0;
+    margin: 0;
+}
+
+.label > div {
+    font-family: Poppins !important;
+    /* font-size: 8px; */
+    position: absolute;
+    background: #000000;
+    color: white;
+    /* padding: 1px 3px; */
+    /* border-radius: 1px; */
+    white-space: nowrap;
+    overflow: hidden;
+    user-select: none;
+}
+
+#landing-item-top {
+    padding: 50px 50px;
+    margin-top: 4px;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    pointer-events: none;
+}
+
+#landing-item-bottom {
+    width: 100px;
+    position: fixed;
+    bottom: 75px;
+    right: 150px;
+    z-index: 99;
+}
+
+#leva__root > * {
+    top: 50px;
+    right: 100px;
+}
