@@ -61,8 +61,6 @@
  * Released under the MIT License.
  */
 
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
-
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
