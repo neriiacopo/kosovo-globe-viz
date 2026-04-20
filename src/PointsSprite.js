@@ -49,7 +49,7 @@ export default function Points({
             const posGrid = result[i].regular;
 
             const obj = {
-                id: i,
+                id: i * 100,
                 posRandom: posRandom,
                 posGrid: posGrid,
                 texture: texture,
@@ -132,18 +132,18 @@ export default function Points({
         setDbClouds((prevDbClouds) =>
             prevDbClouds.map((obj) => {
                 const distance = camera.position.distanceTo(
-                    new THREE.Vector3(...obj.point)
+                    new THREE.Vector3(...obj.point),
                 );
                 const opacity = THREE.MathUtils.clamp(
                     1.5 - distance / 3,
                     0.0,
-                    2
+                    2,
                 );
 
                 obj.material.opacity = opacity; // Update material opacity
 
                 return obj;
-            })
+            }),
         );
     });
 
